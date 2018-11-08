@@ -22,6 +22,8 @@ const removeOptions = () => {
   renderPage();
 }
 
+const numbers = [1,24,54];
+
 const renderPage = () => {
   let template = ( // the parenthesis open and close is just for readability purposes, not syntax
   <div>
@@ -31,8 +33,11 @@ const renderPage = () => {
     <p>{app.options.length}</p>
     <button onClick={removeOptions}>Remove all</button>
     <ol>
-      <li>Item one</li>
-      <li>Item two</li>
+      {
+        app.options.map((option) => { // iterating through option and displaying it
+          return <li key={option}>{option}</li>
+        })
+      }
     </ol>
     <form onSubmit={onFormSubmit}>
       <input type="text" name="option"/>

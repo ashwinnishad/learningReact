@@ -24,6 +24,8 @@ var removeOptions = function removeOptions() {
   renderPage();
 };
 
+var numbers = [1, 24, 54];
+
 var renderPage = function renderPage() {
   var template = // the parenthesis open and close is just for readability purposes, not syntax
   React.createElement(
@@ -59,16 +61,14 @@ var renderPage = function renderPage() {
     React.createElement(
       'ol',
       null,
-      React.createElement(
-        'li',
-        null,
-        'Item one'
-      ),
-      React.createElement(
-        'li',
-        null,
-        'Item two'
-      )
+      app.options.map(function (option) {
+        // iterating through option and displaying it
+        return React.createElement(
+          'li',
+          { key: option },
+          option
+        );
+      })
     ),
     React.createElement(
       'form',

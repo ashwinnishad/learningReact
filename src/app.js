@@ -22,7 +22,11 @@ const removeOptions = () => {
   renderPage();
 }
 
-const numbers = [1,24,54];
+const onMakeDecision = () => {
+  const randNum = Math.floor(Math.random()*app.options.length); // getting a random index
+  const option = app.options[randNum];
+  alert(option);
+}
 
 const renderPage = () => {
   let template = ( // the parenthesis open and close is just for readability purposes, not syntax
@@ -30,7 +34,7 @@ const renderPage = () => {
     <h1>{app.title}</h1>
     { app.subtitle && <p> {app.subtitle} </p>}
     <p>{app.options.length > 0 ? `Here are your options: `: 'No options'}</p>
-    <p>{app.options.length}</p>
+    <button onClick={onMakeDecision} disabled={app.options.length===0}>Decide!</button>
     <button onClick={removeOptions}>Remove all</button>
     <ol>
       {

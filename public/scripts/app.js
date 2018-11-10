@@ -24,7 +24,11 @@ var removeOptions = function removeOptions() {
   renderPage();
 };
 
-var numbers = [1, 24, 54];
+var onMakeDecision = function onMakeDecision() {
+  var randNum = Math.floor(Math.random() * app.options.length); // getting a random index
+  var option = app.options[randNum];
+  alert(option);
+};
 
 var renderPage = function renderPage() {
   var template = // the parenthesis open and close is just for readability purposes, not syntax
@@ -49,9 +53,9 @@ var renderPage = function renderPage() {
       app.options.length > 0 ? 'Here are your options: ' : 'No options'
     ),
     React.createElement(
-      'p',
-      null,
-      app.options.length
+      'button',
+      { onClick: onMakeDecision, disabled: app.options.length === 0 },
+      'Decide!'
     ),
     React.createElement(
       'button',

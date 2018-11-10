@@ -5,7 +5,7 @@ class Person {
   }
 
   getGreeting() {
-    return `Hi ${this.name}!`;
+    return `Hi I'm ${this.name}!`;
   }
 
   getDescription() {
@@ -31,14 +31,34 @@ class Student extends Person {
     else {
       return `${description} Major is undecided.`;
     }
+  }
+}
 
+class Traveler extends Person {
+  constructor(name, age, homeLocation) {
+    super(name,age);
+    this.homeLocation = homeLocation;
+  }
+
+  getGreeting() {
+    let greeting = super.getGreeting();
+    if(!!this.homeLocation) {
+      greeting += ` I'm visiting from ${this.homeLocation}.`;
+    }
+    return greeting;
   }
 }
 
 const me = new Student('Ashwin Nishad', 20, 'CS');
-console.log(me.hasMajor());
-console.log(me.getDescription());
+// console.log(me.hasMajor());
+// console.log(me.getDescription());
 
 const other = new Student();
-console.log(other.hasMajor());
-console.log(other.getDescription());
+// console.log(other.hasMajor());
+// console.log(other.getDescription());
+
+const jane = new Traveler('Jane Plaza', 25, 'Seattle');
+console.log(jane.getGreeting());
+
+const mark = new Traveler('Mark Weins', 28);
+console.log(mark.getGreeting());

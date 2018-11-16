@@ -1,13 +1,38 @@
 class IndecisionApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: ['t1','t2','t5']
+    }
+    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+    this.handlePick = this.handlePick.bind(this);
+  }
+  handleDeleteOptions() {
+    this.setState(() => {
+      return {
+        options: []
+      };
+    });
+  }
+  handlePick() {
+    const randNum = Math.floor(Math.random()*this.state.options.length); // getting a random index
+    const option = this.state.options[randNum];
+    alert(option);
+  }
   render() {
     const title = 'Indecision';
     const subtitle = 'Let me decide what you should do!';
-    const options = ['t1','t2','t5'];
     return (
       <div>
         <Header title={title} subtitle={subtitle}/> {/*title is a prop, key-value pair*/}
-        <Action />
-        <Options options={options}/>
+        <Action
+          hasOptions={this.state.options.length > 0}
+          handlePick = {this.handlePick}
+        />
+        <Options
+          options={this.state.options}
+          handleDeleteOptions = {this.handleDeleteOptions}
+        />
         <AddOption />
       </div>
     );
@@ -25,26 +50,25 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
-  handleClick() {
-    alert('pick');
-  }
   render() {
     return (
       <div>
-        <button onClick={this.handleClick}>What should I do?</button>
+        <button
+         onClick={this.props.handlePick}
+         disabled={!this.props.hasOptions}
+         >
+          What should I do?
+        </button>
       </div>
     );
   }
 }
 
 class Options extends React.Component {
-  removeAll() {
-    alert('remove');
-  }
   render() {
     return (
       <div>
-        <button onClick={this.removeAll}> Remove all </button>
+        <button onClick={this.props.handleDeleteOptions}> Remove all </button>
         {
           this.props.options.map((option) => {
             return <Option key={option} optionText={option}/>

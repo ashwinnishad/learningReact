@@ -5,8 +5,25 @@ class Counter extends React.Component {
     this.handleMinusOne = this.handleMinusOne.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.state = {
-      count : props.count
+      count : 0
     };
+  }
+  componentDidMount() {
+    try {
+      const stringCount = localStorage.getItem('count');
+      const count = parseInt(stringCount, 10);
+      if(!isNaN(count)) {
+        this.setState(() => ({ count }));
+      }
+    }
+    catch (e) {
+      // do nothing, case for invalid json
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.count !== this.state.count) {
+      localStorage.setItem('count', this.state.count)
+    }
   }
   handleAddOne() {
     // setState() is used to automatically re-render based on events. the argument prevState is used to access the state before the event is fired. in setState, we return an object manipulating the data based on the event
@@ -41,10 +58,6 @@ class Counter extends React.Component {
     );
   }
 }
-
-Counter.defaultProps = {
-  count: 0
-};
 
 ReactDOM.render(<Counter />, document.getElementById('app'));
 
